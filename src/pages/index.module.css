@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Text&family=Source+Code+Pro:wght@400;800&display=swap');
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  height: calc(100vh - 60px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Source Code Pro', monospace;
+  background-color: var(--my-bg-clr);
+  color: var(--ifr-);
+}
+
+.heroTitle {
+  font-weight: 800;
+  font-size: 6rem;
+  color: #ecb365;
+  font-family: inherit;
+}
+
+.heroSubtitle {
+  font-family: 'Libre Barcode 39 Text', cursive;
+  font-size: 3rem;
+  margin-bottom: 8rem;
+  color: #ecdbba;
+}
+
+.desk {
+  display: flex;
+  gap: 2rem;
+  position: relative;
+}
+
+.desk::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  width: calc(100% + 10rem);
+  margin: auto;
+  height: 1rem;
+  border-radius: 40rem 40rem 0 0;
+  background-color: #35383b;
+  left: -5rem;
+}
+
+.shelf {
+  border: 2px solid #ecdbba;
+  border-radius: 6px;
+  display: flex;
+  overflow: hidden;
+}
+
+.shelf > * {
+  outline: 1px solid #ecdbba;
+  border-radius: 6px;
+  writing-mode: vertical-rl;
+}
+
+.shelf > * > a {
+  color: #ecdbba;
+}
+
+.shelf > *:hover {
+  background-color: #ecb365;
+}
+
+.shelf > *:hover > a {
+  color: #191919;
+}
+
+.shelf > *:last-child {
+  transform: rotate(-10deg);
+  transform-origin: bottom;
+  margin-left: 2rem;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
