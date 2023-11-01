@@ -1,6 +1,5 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
-
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -56,22 +55,28 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       colorMode: {
-        disableSwitch: false,
+        disableSwitch: true,
         defaultMode: 'dark',
-        respectPrefersColorScheme: false,
+        respectPrefersColorScheme: true,
       },
       // Replace with your project's social card'
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: "AnnieAnny's",
         hideOnScroll: true,
-
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'right',
-            label: '📝 Note',
+            label: 'Note',
+          },
+          {
+            href: 'https://github.com/Annie-Chien',
+            label: 'Github',
+            position: 'right',
+            // Only one of "label" or "html" should be used
+            target: '_blank',
           },
         ],
       },

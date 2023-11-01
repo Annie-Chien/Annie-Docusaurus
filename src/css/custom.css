@@ -35,5 +35,8 @@
 }
 
 .navbar {
-  background-color: var(--my-navbar-bg);
+  background-color: var(--my-bg-clr);
+  /* & * {
+    color: white;
+  } */
 }
