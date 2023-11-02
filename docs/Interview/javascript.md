@@ -12,11 +12,13 @@ sidebar_position: 1
 - [x] [解釋 Event Delegation](#q2)
 - [x] [什麼是 callback function](#q3)
 - [x] [淺拷貝 vs. 深拷貝](#q4)
-- [ ] [e.currentTarget vs. e.target](#q5)
-- [x] [什麼是 event loop?](#q6)
+- [x] [e.currentTarget vs. e.target](#q5)
+- [x] [什麼是 event loop](#q6)
 - [x] [什麼是 closure（閉包）](#q7)
 - [x] [函式宣告式 vs. 函式運算式](#q8)
-- [ ] [什麼是 Prototype Chain](#q9)
+- [x] [什麼是 Prototype Chain](#q9)
+- [x] [什麼是 Scope（作用域）](#q10)
+- [x] [什麼是 AJAX](#q11)
 
 :::
 
@@ -164,13 +166,19 @@ Perfect! 跟我們使用 spread operator 的時候不同，即便是巢狀的資
 
 有的。可以使用 [lodash](https://lodash.com/docs/4.17.15#cloneDeep) 裡面提供的 `_.cloneDeep`。
 
-## 什麼是 event loop?{#q6}
+## e.currentTarget vs. e.target{#q5}
+
+|          | `e.currentTarget`  | `e.target`         |
+| -------- | ------------------ | ------------------ |
+| **定義** | 綁定事件監聽的元素 | 實際觸發事件的元素 |
+
+## 什麼是 event loop{#q6}
 
 舉 addEventListener(‘click’, callbackFunc) 為例，當物件被點擊而觸發 click 事件，該 callback function 就會被調用，callback function 會被放進 callback queue 中排隊等待被執行，而當 call stack 有空時，正在排隊等待執行的 callback function 就會被傳入 call stack 中來執行，而這樣的協調機制就稱為「事件循環 (event loop) 」。
 
 初認識 event loop 的時候，就覺得它好像水上樂園裡滑水道入口的工作人員，他會負責確認滑水道已經沒有人了，才開放下一個遊客溜下去。所以一但發現「喔～現在 call stack 空了呦」，便會引導在 callback queue 乖乖排隊的任務們依序進入 call stack 中執行。
 
-## 什麼是 closure 閉包 ?{#7}
+## 什麼是 closure 閉包{#7}
 
 已經完成執行（已 return）的函式，其內部變數卻依舊存在著並可被存取：
 
@@ -199,7 +207,7 @@ closureFunction(); // This will log "I am from the outer function"
 
 **閉包缺點**
 
-易造成 memory leak（內存洩露） 的問題，也就是「變數未被使用卻仍存在記憶體內、沒被釋放，進而造成內存資源耗盡」。
+易造成 memory leak（內存洩露） 的問題，也就是變數未被使用卻仍存在記憶體內、沒被釋放，進而造成內存資源耗盡。
 
 ## 函式宣告式 vs. 函式運算式
 
@@ -249,13 +257,109 @@ const add = (a, b) => {
 }
 ```
 
-**兩者差異**
+**宣告式與運算式的差異**
 
 hoisting 效果：function declaration 可以在宣告程式碼之前呼叫，不會出問題。
 反之， function expression 則會報錯：
 
 - 用 var 宣告：`TypeError: print is not a function`
 - 用 let、const 宣告的話：`ReferenceError: Cannot access 'print' before initialization`
+
+## 什麼是 prototype chain（原型鍊）{#9}
+
+JS 有 OOP（物件導向）的特性，但它並不全然是一個 OOP 語言。
+因為一般的 OOP 的語言是建構在 class 之上，而 JS 其實是 prototype-based（以原型為基礎），也就是利用一個叫做 prototype 的物件去建立「繼承」關係。
+
+**什麼是 prototype?**
+
+簡單來說，就是一個作為接下來欲創造的新物件的模型，以此模型為核心基礎，加以改良和調整。
+所以說，任何依據此模型所生產出來的物件，都會保有模型原本的特色（繼承關係）。
+
+當每一個函式被建立的時候，都會有一個隱藏內建的 prototype 屬性。
+
+**什麼是 prototype chain?**
+
+JS 每一個物件都有一個 `.__proto__` 屬性（除了用 `Object.create(null)` 所建立的物件），這個屬性會指向建構式的 prototype。當今天在物件內找不到某方法，就會跑到 `.__proto__` 指向的 prototype 去尋找，如果還是找不到，那就繼續往這個 prototype 的 `.__proto__` 去找…依此類推，直到 `.__proto__` 是 null 為止。
+
+而這個透過`.__proto__`不斷往上尋找，像是有一條無形的線把物件與物件聯繫起來，就是「原型鏈」。
+物件實體會優先存取自己的屬性和方法，找不到的時候才會往原型物件尋找。
+
+```=js
+function Person (name, birthYear){
+  this.name = name;
+  this.birthYear = birthYear;
+}
+
+Person.prototype.greet = function (){
+  console.log(`Hi, I'm ${this.name}`)
+}
+
+const justin = new Person('Justin', 1996); //Person {name: 'Justin', birthYear: 1996}
+
+console.log(justin.hasOwnProperty('greet')); //false
+console.log('greet' in justin); //true
+
+justin.greet(); //"Hi, I'm Justin"
+```
+
+- 建構函式 Person 內有 name 和 birthYear 兩個屬性
+- 在 建構函式 Person 的 Prototype 放進 greet 函式
+- 使用 new 創建物件 justin，列印出來後發現物件 justin 本身並未包含 greet 函式，可由 hasOwnProperty() 來驗證。
+- operator `in` 可用來檢查物件本身以及其原型鍊上是否包含該屬性。然而我們發現 `'greet' in justin` 為 true。
+- 結論：在 justin 物件內找不到 greet 函式，JS 會往它的 `.__proto__`(指向 Person.Prototype) 尋找，直到找到或是 null 才停止，這正是「原型鍊」的概念。
+
+## 什麼是 Scope（作用域） {#10}
+
+Scope（作用域）指變數的生存範圍，一但離開了這個生存範圍，就無法存取。
+
+JS 內作用域目前有三種：
+
+**1. block scope**
+
+- block scope 是在 ES6 才出現，在這之前，最小作用域範圍是 function scope。
+- 所有在 {} 括號內的東西都稱作 block（區塊）
+- 在區塊內宣告的變數只能在區塊內取用
+- block scope 只適用於用 let 和 const 宣告的變數；若用 var 宣告，則在區塊之外仍可使用。
+
+**2. function scope**
+
+- 變數只能在函式內部取用
+- 亦稱作「區域變數(local scope)」
+- var 宣告的變數皆是 function scope
+
+**3. global scope**
+
+- 所有在函式或區塊之外的程式碼(top-level)都屬於全域範疇
+- 在任何地方都可取用
+- 如果你沒有使用宣告關鍵字（var, const, let）則會自動變成 global scope
+
+:::info[local scope]
+指的是 function scope & block scope
+:::
+
+**scope chain 範疇鏈**
+
+在自己的作用域內查找變數，若找不到時會往外層繼續尋找，直到全域範疇，尋找變數的這個動作又稱作「Variable lookup（變數查找）」。
+
+> 只能由內而外，無法由外而內！
+
+## 什麼是 AJAX {#q11}
+
+AJAX 全名為 Asynchronous JavaScript And XML，透過 AJAX 這項技術，我們可以動態向遠端伺服器請求資料（request data）。讓我們在不需要重整網頁的情況下，就能夠即時地與伺服端交換資料。
+
+✏️ AJAX 裡面的 X 代表 XML。XML 是一種以前常用來交換資料的格式，現在多用 JSON！不過因為 AJAX 這個詞是以前當 XML 還盛行時所創的，所以才會包含 XML（即便現在已經很少用了）。
+
+**AJAX 的運作方式**
+
+當事件發生時（如載入網頁或是點擊按鈕）...
+
+瀏覽器會透過 JS 創建一個 XMLHttpRequest 物件，並傳送請求（request）給網路伺服器
+伺服器接收到請求後開始進行處理，完成後回應（response）瀏覽器
+OK！你或許注意到了以上有個叫做 XMLHttpRequest 的酷東東～
+它就是那位幫助我們實行非同步請求的大功臣...嗎？
+以前是，但現在不是。
+
+現在大家都在用 Fetch API，因為它比 XMLHttpRequest(XHR) 更簡單方便。
 
 ## Resources
 
