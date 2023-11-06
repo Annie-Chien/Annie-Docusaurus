@@ -481,7 +481,7 @@ console.log(add.apply(null, [1, 2])); // 2
 | 做什麼 | 取出 object 的 key                                         | 取出可迭代物件的元素                                  |
 | 注意   | 若物件的屬性為 integer properties 時，迭代順序可能不如預期 | 不可使用在 object，因為 object 並不是 iterable object |
 
-:::note[可迭代物件]
+:::info[可迭代物件]
 可迭代物件的特色是有個 [Symbol.iterator] 方法，此方法會回傳「迭代器（iterator）」，而迭代器內提供 next() 函式，可用來依序迭代可迭代物件內的元素。
 :::
 
