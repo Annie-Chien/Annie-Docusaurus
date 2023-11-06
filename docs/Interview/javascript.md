@@ -19,6 +19,11 @@ sidebar_position: 1
 - [x] [什麼是 Prototype Chain](#q9)
 - [x] [什麼是 Scope（作用域）](#q10)
 - [x] [什麼是 AJAX](#q11)
+- [x] [by sharing vs. by reference](#q12)
+- [x] [解釋 == 和 === 的差異](#q13)
+- [x] [什麼是 IIFE](#q14)
+- [x] [.call vs. .apply](#q15)
+- [x] [for...in vs. for...of](#q16)
 
 :::
 
@@ -265,7 +270,7 @@ hoisting 效果：function declaration 可以在宣告程式碼之前呼叫，�
 - 用 var 宣告：`TypeError: print is not a function`
 - 用 let、const 宣告的話：`ReferenceError: Cannot access 'print' before initialization`
 
-## 什麼是 prototype chain（原型鍊）{#9}
+## 什麼是 prototype chain{#9}
 
 JS 有 OOP（物件導向）的特性，但它並不全然是一個 OOP 語言。
 因為一般的 OOP 的語言是建構在 class 之上，而 JS 其實是 prototype-based（以原型為基礎），也就是利用一個叫做 prototype 的物件去建立「繼承」關係。
@@ -360,6 +365,127 @@ OK！你或許注意到了以上有個叫做 XMLHttpRequest 的酷東東～
 以前是，但現在不是。
 
 現在大家都在用 Fetch API，因為它比 XMLHttpRequest(XHR) 更簡單方便。
+
+## by value vs. by reference{#q12}
+
+**基本型別的變數傳遞方式是 pass by value （傳值）**
+
+```=js
+let a = 'yes';
+let b = a; //複製 a 的值給 b
+a = 'no'; // 重新賦予 a 新的值
+console.log(a, b);//結果是， a: 'no', b:'yes'。
+```
+
+改變 a 的值並不會影響到 b，因為變數內容傳遞的方式為傳值，a, b 內容為互相獨立。
+
+**物件則是 pass by reference**
+
+```=js
+let obj = {
+  name: 'annie',
+  age: 24,
+};
+
+let obj2 = obj;
+obj2.name = 'jim';
+obj2.age = 99;
+console.log(obj, obj2);
+//obj , obj2 都變成 { name: 'jim', age: 99 }！
+```
+
+我們明明是改變 obj2 的屬性，卻連帶影響到了原本的 obj
+因為物件的變數內容傳遞方式為傳址，意思是傳遞的並不是物件的內容，而是記憶體的地址。因此 obj 與 obj2 其實指向的都是同一個記憶體位置，因此修改 obj2 就會影響到 obj。
+
+**pass by sharing**
+
+雖然我們說物件是傳址的，但在某些情況下似乎例外：
+
+```=js
+let obj1 = {
+  name: 'a',
+  age: 1,
+};
+
+let obj2 = obj1;
+console.log(obj1, obj2); //兩個都是{ name: 'a', age: 1 }
+obj1 = {
+  name: 'b',
+  age: 100,
+};
+console.log(obj1, obj2);
+//obj1: { name: 'b', age: 100 }
+//obj2: { name: 'a', age: 1 }
+```
+
+咦？奇怪了！剛剛不是說，改變其中一個物件也會影響到另一個物件嗎？那怎麼 obj2 竟然沒有受到影響。
+仔細看看，我們在改變 obj1 的變數內容時，是使用物件實字去重新賦值的，因此其實 obj1 已經指向了一個全新的記憶體位置，和 obj2 指向的記憶體已經不同了，所以並不會互相影響。
+
+**重點統整**
+
+1. 基本型別是 pass by value
+2. 物件型別如果是針對變數內容進行更改等操作，是 pass by reference
+3. 物件型別如果是直接重新賦值，則被稱作 pass by value
+
+因為物件有兩種特殊情況，故有人說 js 屬於 pass by sharing。
+
+## 解釋 == 和 === 的差異{#q13}
+
+| `==`           | `===`            |
+| -------------- | ---------------- |
+| 相等運算符     | 嚴格相等運算符   |
+| 會自動轉換型別 | 不會自動轉換型別 |
+| 5 == '5'(true) | 5 === '5'(false) |
+
+**Object.is(value1, value2)**
+
+`Object.is()` 與 `===` 行為類似，差別在於對待 +/-0 和 NaN 的方式：
+
+```=js
+NaN === NaN //false
++0 === -0 // true
+Object.is(NaN, NaN); //true
+Object.is(+0, -0); //false;
+```
+
+## 什麼是 IIFE
+
+IIFE 為 Immediately Invoked Function Expressions 的縮寫，是一種能在宣告函式同時執行函式的手段。
+
+```=js
+(function () {
+    // Code to be executed immediately
+})();
+
+```
+
+## `.call` vs. `.apply`{#q15}
+
+.call 和 .apply 都是用來觸發函式執行，且第一個參數指定 this 的值。最大的差別在於 .call 是用逗號來分隔要傳入函式參數值，而 .apply 則是用陣列[]。
+
+```=js
+function multiply(a, b) {
+  return a * b;
+}
+
+console.log(add.call(null, 1, 2)); // 2
+console.log(add.apply(null, [1, 2])); // 2
+
+```
+
+## `for...in` vs. `for...of`{#q16}
+
+| 比較   | `for...in`                                                 | `for...of`                                            |
+| ------ | ---------------------------------------------------------- | ----------------------------------------------------- |
+| 對象   | object                                                     | 可迭代物件（iterable objects）                        |
+| 做什麼 | 取出 object 的 key                                         | 取出可迭代物件的元素                                  |
+| 注意   | 若物件的屬性為 integer properties 時，迭代順序可能不如預期 | 不可使用在 object，因為 object 並不是 iterable object |
+
+:::note[可迭代物件]
+可迭代物件的特色是有個 [Symbol.iterator] 方法，此方法會回傳「迭代器（iterator）」，而迭代器內提供 next() 函式，可用來依序迭代可迭代物件內的元素。
+:::
+
+參考之前寫的文章 🔗[【JS 學習筆記】認識 for…in 與他的兄弟 for…of](https://medium.com/@annie.chien105/js學習筆記-認識-for-in-與他的兄弟-for-of-6e71d61709dd)
 
 ## Resources
 
