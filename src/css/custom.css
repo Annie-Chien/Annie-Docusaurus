@@ -40,3 +40,6 @@
     color: white;
   } */
 }
+.highlight {
+  color: var(--ifm-color-primary);
+}

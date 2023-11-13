@@ -6,19 +6,14 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'AnnieAnny',
-  tagline: 'Dinosaurs are cool',
+  url: 'https://annie-chien.github.io', // Set the production url of your site here
+  organizationName: 'Annie-Chien', // Usually your GitHub org/user name.
+  projectName: 'Annie-Docusaurus', // Usually your repo name.
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
-  url: 'https://annie-chien.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/Annie-Docusaurus/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Annie-Chien', // Usually your GitHub org/user name.
-  projectName: 'Annie-Docusaurus', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -40,10 +35,10 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
 
+          // editUrl:
+          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -59,15 +54,17 @@ const config = {
         defaultMode: 'dark',
         respectPrefersColorScheme: true,
       },
+
       // Replace with your project's social card'
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
         title: "AnnieAnny's",
         hideOnScroll: true,
         items: [
+          { to: 'about', label: 'About', position: 'left' },
           {
             type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            sidebarId: 'docSidebar',
             position: 'right',
             label: 'Note',
           },
@@ -75,7 +72,12 @@ const config = {
             href: 'https://github.com/Annie-Chien',
             label: 'Github',
             position: 'right',
-            // Only one of "label" or "html" should be used
+            target: '_blank',
+          },
+          {
+            href: 'https://medium.com/@annie.chien105',
+            label: 'Medium',
+            position: 'right',
             target: '_blank',
           },
         ],
