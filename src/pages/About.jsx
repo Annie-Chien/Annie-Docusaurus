@@ -5,9 +5,9 @@ const About = () => {
   return (
     <Layout title="About" description="About me">
       {/* Starry Night background */}
-      <div class={S.stars}></div>
-      <div class={S.twinkling}></div>
-      <div class={S.clouds}></div>
+      <div className={S.stars}></div>
+      <div className={S.twinkling}></div>
+      <div className={S.clouds}></div>
       <div className={S.content}>
         <div className="avatar avatar--vertical">
           <img
@@ -17,7 +17,10 @@ const About = () => {
           <div className="avatar__intro">
             <div className={S.name}>Annie Chien</div>
             <small className="avatar__subtitle">
-              ✉️ annie.chien105@gmail.com
+              ✉️{' '}
+              <a href="mailto:annie.chien105@gmail.com">
+                annie.chien105@gmail.com
+              </a>
             </small>
             <p className={S.description}>
               嗨，我是 Annie，2022 年 4

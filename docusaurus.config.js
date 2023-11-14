@@ -61,12 +61,12 @@ const config = {
         title: "AnnieAnny's",
         hideOnScroll: true,
         items: [
-          { to: 'about', label: 'About', position: 'left' },
+          { to: 'about', label: 'ABOUT', position: 'left' },
           {
             type: 'docSidebar',
             sidebarId: 'docSidebar',
             position: 'right',
-            label: 'Note',
+            label: 'NOTE',
           },
           {
             href: 'https://github.com/Annie-Chien',
