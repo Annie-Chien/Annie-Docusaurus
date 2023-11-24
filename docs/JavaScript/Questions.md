@@ -17,3 +17,4 @@ title: JS 觀念題統整
 - [JavaScript 實戰練習題 & 解析 — Part.5 (Q21~30)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-5-96463e9015b3)
 - [JavaScript 實戰練習題 & 解析 — Part.6 (Q31~40)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-6-5526b87353ec)
 - [JavaScript 實戰練習題 & 解析 — Part.7 (Q41~50)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-7-25d79a9ec034)
+- [JavaScript 實戰練習題 & 解析 — Part.8 (Q51~60)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-8-856f64380e76)
