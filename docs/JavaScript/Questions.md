@@ -23,3 +23,4 @@ title: JS 觀念題統整
 - [JavaScript 實戰練習題 & 解析 — Part.11 (Q81~90)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-11-2ef6e0019900)
 - [JavaScript 實戰練習題 & 解析 — Part.12 (Q91~100)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-12-fa1cf0d3cbd0)
 - [JavaScript 實戰練習題 & 解析 — Part.13 (Q101~110)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-13-cc705b21f81a)
+- [JavaScript 實戰練習題 & 解析 — Part.14 (Q111~120)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-14-bc3a8ee3f093)
