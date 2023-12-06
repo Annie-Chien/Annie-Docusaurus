@@ -2,11 +2,15 @@
 title: JS 觀念題統整
 ---
 
+## 前言
+
 最近打算重新複習 JS 一下基本觀念，想到之前在 Github 上發現一個很棒的資源: [JavaScript Questions](https://github.com/lydiahallie/javascript-questions)，裡面整理了非常多和 JS 相關的題目，還很佛心地附上解釋。
 
 所以決定要邊解題邊寫成文章記錄一下！
 
 ---
+
+## 目錄
 
 系列文章統一發佈在 Medium，以下為文章目錄：
 
@@ -26,3 +30,4 @@ title: JS 觀念題統整
 - [JavaScript 實戰練習題 & 解析 — Part.14 (Q111~120)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-14-bc3a8ee3f093)
 - [JavaScript 實戰練習題 & 解析 — Part.15 (Q121~130)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-15-974a98894a9d)
 - [JavaScript 實戰練習題 & 解析 — Part.16 (Q131~140)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-16-4ac606290b4a)
+- [JavaScript 實戰練習題 & 解析 — Part.17 (Q141~150)](https://medium.com/@annie.chien105/javascript-實戰練習題-解析-part-17-54efd048e819)
