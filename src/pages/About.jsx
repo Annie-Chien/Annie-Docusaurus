@@ -1,6 +1,6 @@
 import Layout from '@theme/Layout';
 import React from 'react';
-import S from './about.module.css';
+import S from './about.module.scss';
 const About = () => {
   return (
     <Layout title="About" description="About me">
