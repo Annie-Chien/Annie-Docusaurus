@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;800&family=Yellowtail&display=swap');
+.main {
+  overflow: hidden;
+  max-width: 100vw;
+  max-height: 100vh;
+  position: relative;
+}
 
 .heroBanner {
   height: calc(100vh - 60px);
@@ -13,7 +19,7 @@
 
 .heroTitle {
   font-weight: 400;
-  font-size: 6rem;
+  font-size: min(max(10vw, 60px), 120px);
   margin-top: auto;
   color: #fff;
   font-family: 'Yellowtail', cursive;
@@ -53,30 +59,29 @@
   }
 }
 
-.heroSubtitle {
-  font-size: 1.2rem;
+// .heroSubtitle {
+//   font-size: 1.2rem;
+//   position: relative;
+//   background-color: #efefef;
+//   color: rgb(58, 41, 20);
+//   padding: 0.3rem 3rem;
 
-  position: relative;
-  background-color: #efefef;
-  color: rgb(58, 41, 20);
-  padding: 0.3rem 3rem;
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0px;
+//     right: 0px;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0px;
-    right: 0px;
-
-    border-style: solid;
-    border-width: 0 30px 30px 0;
-    border-color: #a9a9a9 var(--my-bg-clr);
-    transition: all ease 0.5s;
-  }
-  &:hover::before {
-    border-width: 0 10px 10px 0;
-    border-color: #a9a9a9 var(--my-bg-clr);
-  }
-}
+//     border-style: solid;
+//     border-width: 0 30px 30px 0;
+//     border-color: #a9a9a9 var(--my-bg-clr);
+//     transition: all ease 0.5s;
+//   }
+//   &:hover::before {
+//     border-width: 0 10px 10px 0;
+//     border-color: #a9a9a9 var(--my-bg-clr);
+//   }
+// }
 
 .desk {
   display: flex;
@@ -88,13 +93,13 @@
   content: '';
   position: absolute;
   top: 100%;
-  width: calc(100% + 20rem);
-  margin: auto;
+  width: max(60vw, 30rem);
   height: 1rem;
   border-radius: 5px 5px 0 0;
   border: 2px solid #ecdbba;
   background-color: #4a3d1f;
-  left: -10rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .shelf {
@@ -102,6 +107,10 @@
   border-radius: 6px;
   display: flex;
   overflow: hidden;
+
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 }
 
 .shelf > * {
@@ -153,7 +162,6 @@
   left: -30%;
   top: -60%;
   overflow: hidden;
-  /* background-color: rgb(111, 219, 249); */
   background-color: black;
 }
 
@@ -177,7 +185,7 @@
 .lightrope {
   position: absolute;
   text-align: start;
-  top: 5rem;
+  top: 0;
   left: 0;
   z-index: 1;
   padding: 0;
@@ -186,6 +194,10 @@
   white-space: nowrap;
   transform: rotate(-10deg);
   background-color: #b5b4b4;
+
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 
   & > li {
     width: 12px;

@@ -52,7 +52,7 @@ const config = {
       colorMode: {
         disableSwitch: true,
         defaultMode: 'dark',
-        respectPrefersColorScheme: true,
+        respectPrefersColorScheme: false,
       },
 
       // Replace with your project's social card'

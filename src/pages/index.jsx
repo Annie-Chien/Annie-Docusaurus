@@ -23,7 +23,7 @@ export default function Home() {
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />"
     >
-      <main style={{ overflow: 'hidden' }}>
+      <main className={S.main}>
         <div className={S.heroBanner}>
           <h1 className={`${S.heroTitle} ${S[TitleColors[colorIdx]]}`}>
             I'm Annie
