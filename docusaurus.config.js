@@ -6,24 +6,18 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'AnnieAnny',
-  url: 'https://annie-chien.github.io', // Set the production url of your site here
-  organizationName: 'Annie-Chien', // Usually your GitHub org/user name.
-  projectName: 'Annie-Docusaurus', // Usually your repo name.
+  url: 'https://annie-chien.github.io',
+  organizationName: 'Annie-Chien',
+  projectName: 'Annie-Docusaurus',
   favicon: 'img/favicon.ico',
-
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/Annie-Docusaurus/',
-
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
+  /* ---------------------- Language ---------------------- */
   i18n: {
     defaultLocale: 'zh-Hant-TW',
-    locales: ['en', 'zh-Hant-TW'],
+    locales: ['zh-Hant-TW'],
   },
 
   presets: [
@@ -31,21 +25,17 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        docs: {
+          sidebarPath: require.resolve('./sidebars.js'),
         },
       }),
     ],
   ],
 
+  /* ------------------------ Theme ----------------------- */
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -54,9 +44,9 @@ const config = {
         defaultMode: 'dark',
         respectPrefersColorScheme: false,
       },
-
-      // Replace with your project's social card'
-      image: 'img/docusaurus-social-card.jpg',
+      prism: {
+        defaultLanguage: 'javascript',
+      },
       navbar: {
         title: "AnnieAnny's",
         hideOnScroll: true,
@@ -82,14 +72,6 @@ const config = {
           },
         ],
       },
-      // footer: {
-      //   style: 'dark',
-      //   copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-      // },
-      // prism: {
-      //   theme: lightCodeTheme,
-      //   darkTheme: darkCodeTheme,
-      // },
     }),
   plugins: ['docusaurus-plugin-sass'],
 };
