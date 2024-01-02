@@ -188,3 +188,152 @@ Micro Layouts 指的是針對單一元件的排版。
 :::info
 這個網站上面列了幾種常見排版的樣式設定範例：[1linelayouts](https://1linelayouts.glitch.me)
 :::
+
+## Typography
+
+若沒有針對字型設定樣式，則預設會使用 User Agent stylesheets（不同瀏覽器有不同的設定）。
+
+### Text size 字體大小
+
+> Use smaller text sizes for smaller screens and larger text sizes for larger screens.
+
+可使用 media query 針對不同尺寸設定字體大小：
+
+```css
+@media (min-width: 30em) {
+  html {
+    font-size: 125%;
+  }
+}
+
+@media (min-width: 40em) {
+  html {
+    font-size: 150%;
+  }
+}
+```
+
+但缺點是這樣的階梯式變化可能會來得太突兀，使用者能明顯感受到字體一下子從 40px 跳到 30px，整體而言這樣的體驗不太好。
+
+更好的做法是讓字體大小變化為「漸進式」，而這可以透過 vw 來達成。
+
+```css
+html {
+  font-size: calc(0.75rem + 1.5vw);
+}
+```
+
+發現除了設定 1.5vw 以外，還加上相對單位 0.75rem。因為如果僅設定 1.5vw，則使用者無法自行縮放字的大小。
+
+但是！這個設定還有個致命缺點，在螢幕太窄或太寬的極端情況下，字的尺寸也會變得太小或太大。
+
+因此，我們必須使用 clamp() 來替換掉 calc()。
+
+```css
+html {
+  font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
+}
+```
+
+clamp(min, VAL, MAX) 函式接收三個參數，當 VAL 大於 MAX 時採用 MAX；當 VAL 小於 min 時採用 min；其餘情況則採用 VAL。
+
+### Line Length
+
+單欄：一行文字最好控制在範圍 45~75 個字（66 最佳）
+多欄：一行文字最好控制在範圍 40~50 個字
+
+設定 article 最大寬度為 66ch，單位 ch 為「一個數字 0 的寬度」。
+
+```css
+article {
+  max-inline-size: 66ch;
+}
+```
+
+### Line Height
+
+> Shorter lines of text can have larger line-height values. But if you use large line-height values for long lines of text, it's hard for the reader's eye to move from the end of one line to the start of the next line.
+
+在設定 line-height 屬性時，盡可能**不要**使用任何單位，確保行高的數值是根據字體大小自動計算出來的。
+
+```css
+article {
+  max-inline-size: 66ch;
+  line-height: 1.65;
+}
+blockquote {
+  max-inline-size: 45ch;
+  line-height: 2;
+}
+```
+
+## Responsive Image
+
+當圖片寬度大於螢幕寬時，圖片會超出畫面，並出現 scrollbar。
+
+可透過設定最大寬度來避免圖片 overflow。
+
+```css
+img {
+  max-inline-size: 100%;
+  block-size: auto;
+}
+```
+
+block-size:auto 可確保圖片寬高比不變，不會被拉伸或壓縮。
+
+如果已知圖片長寬可標註在 img tag 內，這麼做可以幫助在圖片載入之前預留適當空間，減少內容跳動行為。
+
+```html
+<img
+  src="image.png"
+  alt="A description of the image."
+  width="300"
+  height="200"
+  loading="lazy"
+  fetchpriority="high"
+/>
+```
+
+- loading: "lazy" 延遲載入，"eager" 為預設值，表示立即加載。
+- fetchpriority: 通常瀏覽器會在 layout 大致渲染完成後才開始加載圖片，但如果有設定 fetchpriority="high" 則會優先加載，要注意的是這麼做勢必會影響到其他檔案（如 script 或 font file）的載入任務，因此只有在該張圖片非常重要的情況下才會加上此設定。
+
+**認識 srcset**
+srcset 用於提供多個不同尺寸圖片，以便瀏覽器能夠根據裝置條件（如設備螢幕尺寸和解析度）載入最合適的圖片。
+
+```html
+<img
+  src="small-image.png"
+  alt="A description of the image."
+  width="300"
+  height="200"
+  loading="lazy"
+  decoding="async"
+  srcset="small-image.png 300w, medium-image.png 600w, large-image.png 1200w"
+  sizes="(min-width: 66em) 33vw,
+  (min-width: 44em) 50vw,
+  100vw"
+/>
+```
+
+- src: 是一個必要的屬性，用於指定預設的圖片，當 srcset 中指定的所有條件都不符合時將使用該圖片。
+- srcset: 包含一系列用逗號分隔的圖片描述，括圖片的 URL 和其對應的 width descriptor/pixel density descriptor。
+  使用 width descriptor 時，必須搭配 size 屬性一起使用，如以上範例：當螢幕寬度大於 66em 時，使用最大寬度為 33vw 的圖片 / 當螢幕寬度介於 44~66em，使用 50vw 的圖片，其餘顯示 100vw 的圖片。
+
+**認識 Picture**
+可以做到和 srcset 一樣的事情，但在使用上又更靈活一點。
+
+```html
+<picture>
+  <source srcset="image.avif" type="image/avif" />
+  <source srcset="image.webp" type="image/webp" />
+  <img
+    src="image.jpg"
+    alt="A description of the image."
+    width="300"
+    height="200"
+    loading="lazy"
+    decoding="async"
+  />
+</picture>
+```
