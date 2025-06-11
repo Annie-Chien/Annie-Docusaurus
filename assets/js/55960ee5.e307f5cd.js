@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[121],{8070:a=>{a.exports=JSON.parse('[{"label":"JavaScript","permalink":"/Annie-Docusaurus/docs/tags/java-script","count":1},{"label":"Data Structure","permalink":"/Annie-Docusaurus/docs/tags/data-structure","count":1}]')}}]);
