@@ -1,13 +1,12 @@
 ---
 title: 其他
-sidebar_position: -1
+sidebar_position: 4
 ---
 
 :::note[目錄]
 
 - [x] [什麼是 CORS](#q1)
-- [x] [什麼是 Git flow](#q2)
-- [x] [localStorage vs. sessionStorage vs. cookie](#q4)
+- [x] [localStorage vs. sessionStorage vs. cookie](#q2)
 - [ ] [介紹一下 HTTP methods](#q5)
 - [ ] [什麼是 RESTful API](#q6)
 
@@ -45,19 +44,7 @@ sidebar_position: -1
 
   在發出真正的請求之前，瀏覽器會先發送一次 HTTP 請求來檢查此來源是否被允許，若確定 OK，才會接著發送真正的請求。
 
-## 什麼是 Git flow{#q2}
-
-Git flow 為「使用 git 版控的一套標準規範」，以下介紹主要的分支類型：
-
-- 主分支（Master Branch）：代表軟體的穩定、適用於生產的版本。它應始終包含最新的發布版。
-- 開發分支（Develop Branch）：主要整合分支，新功能和錯誤修復分支的合併點。它應該比功能分支更穩定。
-- 功能分支（Feature Branches）：功能分支用於新功能或優化功能。它們從 develop 分支分開，當功能完成時，將其合併回 develop。
-- 發布分支（Release Branches）：當 develop 分支已準備就緒就可合併回 release 分支。
-- 修補分支（Hotfix Branches）：用於快速處理生產程式碼中的問題和錯誤。一旦修補完成，就會合併到 master 和 develop。
-
-<!-- ![git-flow](/img/git-flow.png) -->
-
-## localStorage vs. sessionStorage vs. cookie{#q4}
+## localStorage vs. sessionStorage vs. cookie{#q2}
 
 localStorage、sessionStorage、cookie 是三種在 client 端儲存資料的方式，
 
