@@ -20,7 +20,7 @@ Linked List 是節點與節點透過指標相互連接所形成的一條鏈結�
 
 （待補圖）
 
-1. Single linked list
+1. Singly linked list
    最基礎的 linked list，鏈結方向為單向
 2. Double linked list
    鏈結方向為雙向，也就是每個節點除了有指向下一個節點的指標（next）外，還有指向上一個節點的指摽（prev）
@@ -49,7 +49,7 @@ class LinkedList {
     this.length = 0;
   }
 
-  //Methods...
+  Methods...
 }
 ```
 
@@ -85,7 +85,7 @@ class LinkedList {
 
 ```js
   removeAt(index) {
-    //檢查 index 是否為有效值
+    檢查 index 是否為有效值
     if (index < 0 || index >= this.length) return null;
 
     let current = this.head;
@@ -136,4 +136,100 @@ insertAt(index, val) 接受兩個參數：
     }
     this.length++;
   }
+```
+
+## 練習
+
+### [876. Middle of the Linked List](https:leetcode.com/problems/middle-of-the-linked-list/description/)
+給定一個單向 Linked List，請找出其中間的節點並回傳。
+
+#### 方法一、計算 Linked List 總長度
+
+```js
+function findMiddleNode(head) {
+  let listLength = 1;
+  let curr = head;
+
+  while (curr.next !== null) {
+    listLength++;
+    curr = curr.next;
+  }
+
+  const middleIndex = Math.floor(listLength / 2);
+  let middleNode = head;
+
+  for (let i = 0; i < middleIndex; i++) {
+    middleNode = middleNode.next;
+  }
+  return middleNode;
+}
+```
+
+#### 方法二、快慢指標
+
+```js
+function findMiddleNode(head) {
+  let slow = head;
+  let fast = head;
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  return slow;
+}
+```
+
+### [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/description/)
+
+給定一個單向鏈結串列的 head，請判斷這個鏈結串列是否包含一個「環」。
+
+```js
+
+function hasCycle(head) {
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+    // 然後再檢查是否相遇
+    if (slow === fast) return true;
+  }
+
+  return false;
+}
+
+```
+### [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/description/)
+給定一個帶有「環」的鏈結串列，請找出環開始的節點。如果沒有環，則回傳 null。
+
+```js
+
+function detectCycle(head) {
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+
+    //當 slow === fast，代表已經進入了環中。
+    if (slow === fast) {
+
+      //這時再從 head 新起一個指針 finder，和 slow 一起一步一步走，它們會在環的起點相遇。
+      let pointer = head;
+
+      while (pointer !== slow) {
+        pointer = pointer.next;
+        slow = slow.next;
+      }
+
+      return finder;
+    }
+  }
+
+  return null;
+}
+
 ```
